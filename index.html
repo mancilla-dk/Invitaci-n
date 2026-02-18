@@ -321,46 +321,114 @@
         .fade-in-up { animation: popUpBox 1s forwards; }
 
         /* =========================================
-           OPTIMIZACIÓN PARA ESCRITORIO (PC)
+           OPTIMIZACIÓN PARA ESCRITORIO (PC) - VERSIÓN GRANDE
            ========================================= */
         @media (min-width: 768px) {
             .content-wrapper {
-                max-width: 900px; /* Limita el ancho en pantallas grandes */
-                margin: 0 auto;   /* Centra todo el contenido */
+                /* Aumentamos el ancho máximo para usar más pantalla */
+                max-width: 1400px; 
+                margin: 0 auto;
+                padding-bottom: 100px;
             }
-            h1.name-title { font-size: 6rem; }
+
+            /* Texto de los globos iniciales */
+            .balloons-text-container { max-width: 1000px; gap: 15px; margin-bottom: 30px; }
+            .letter-balloon { 
+                width: 60px; height: 75px; font-size: 2.5rem; 
+                -webkit-text-stroke: 1.5px black;
+            }
+
+            /* Cronómetro Gigante */
+            .missing-text { font-size: 3rem; margin-bottom: 15px; }
+            .time-box { 
+                width: 140px; height: 160px; 
+                border-radius: 20px;
+                border: 4px solid rgba(255,255,255,0.5);
+            }
+            .time-box span { font-size: 4.5rem; -webkit-text-stroke: 2px black; }
+            .time-box small { font-size: 1.2rem; margin-top: 5px; }
+            .countdown-container { gap: 15px; margin-bottom: 30px; }
+
+            /* Nombre GUILLERMO Gigante */
+            h1.name-title { 
+                font-size: 9rem; 
+                margin: 20px 0; 
+                text-shadow: 8px 8px 0px #000;
+                -webkit-text-stroke: 4px black;
+            }
             
-            .balloons-text-container { max-width: 800px; gap: 10px; }
-            .letter-balloon { width: 45px; height: 55px; font-size: 2rem; }
-
-            .time-box { width: 90px; height: 100px; }
-            .time-box span { font-size: 2.5rem; }
-            .time-box small { font-size: 0.8rem; }
-
-            .big-counter { font-size: 10rem; }
-            .cf-img { width: 220px; }
+            /* Contador de Edad (7 Años) */
+            .big-counter { 
+                font-size: 16rem; 
+                -webkit-text-stroke: 5px #ff4081;
+                text-shadow: 10px 10px 0px black;
+            }
+            .counter-final-text { 
+                font-size: 8rem; 
+                -webkit-text-stroke: 3px white;
+            }
             
-            /* Ajustar escenario final para que se vea más grande en PC */
-            .scene-container { transform: scale(1.3); margin-bottom: 50px; margin-top: 20px; }
+            /* Personajes flotantes (Bob y Patricio flotando) */
+            .cf-img { width: 350px; }
+            .age-wrapper { min-height: 350px; }
 
-            /* Alinear información horizontalmente */
+            /* Escenario Final (Casa) - ESCALA GRANDE */
+            .scene-wrapper { margin-top: -50px; margin-bottom: 50px; }
+            .scene-container { 
+                /* Escalamos todo el bloque de la casa al 200% */
+                transform: scale(2.0); 
+                transform-origin: bottom center;
+                margin-bottom: 80px; 
+            }
+            
+            /* Información (Ubicación y Caracola) */
             .info-row { 
                 justify-content: center; 
-                gap: 40px; 
+                gap: 80px; 
+                margin-top: 60px;
             }
-            .location-bubble { width: 250px; max-width: none; margin-right: 0; }
-            .magic-conch-wrapper { width: 200px; max-width: none; margin-left: 0; }
-            
-            .no-faltes-text { font-size: 3.5rem; }
+            .location-bubble { 
+                width: 350px; height: 350px; max-width: none; 
+                margin-right: 0; padding: 20px;
+            }
+            .loc-title { font-size: 2.5rem; margin-bottom: 15px; }
+            .loc-address { font-size: 1.5rem; line-height: 1.4; }
 
-            /* Botones en fila en lugar de columna */
+            .magic-conch-wrapper { 
+                width: 300px; max-width: none; margin-left: 0; 
+            }
+            .conch-text { font-size: 3rem; }
+            
+            /* Texto No Faltes */
+            .no-faltes-text { 
+                font-size: 5rem; 
+                margin: 50px 0 30px 0;
+                -webkit-text-stroke: 3px black;
+            }
+
+            /* Botones Enormes */
             .buttons-container { 
                 flex-direction: row; 
                 flex-wrap: wrap; 
                 justify-content: center;
-                gap: 20px;
+                gap: 30px;
+                margin-top: 40px;
             }
-            .action-btn { width: auto; min-width: 250px; padding: 15px 40px; }
+            .action-btn { 
+                width: auto; 
+                min-width: 350px; 
+                padding: 20px 50px; 
+                font-size: 1.8rem;
+                border: 5px solid black;
+                box-shadow: 0 10px 0 black;
+            }
+            
+            /* Ajuste del botón de inicio */
+            .start-btn {
+                font-size: 3rem;
+                padding: 30px 60px;
+                border-width: 6px;
+            }
         }
 
     </style>
@@ -712,3 +780,4 @@
     </script>
 </body>
 </html>
+
