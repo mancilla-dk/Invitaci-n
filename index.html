@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <meta property="og:title" content="¡Cumpleaños de GUILLERMO! - 7 Años">
+    <meta property="og:description" content="Te invito a mi fiesta de Bob Esponja el 28 de Septiembre. ¡No faltes!">
+    <meta property="og:image" content="https://i.ibb.co/gbwYL0TD/Picsart-26-02-17-16-09-36-958.png">
+    <meta property="og:type" content="website">
+    
+    <title>Invitación GUILLERMO</title>
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Fredoka:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: #38a3d1; 
+            background-image: url('https://i.ibb.co/fGYs39jp/Picsart-26-02-17-13-26-34-159.jpg');
+            background-size: cover;
+            background-position: center bottom;
+            background-attachment: fixed;
+            min-height: 100vh;
+            font-family: 'Luckiest Guy', cursive;
+            color: white;
+            text-align: center;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* CAPA OSCURA */
+        #bg-dimmer {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.6); 
+            opacity: 0; pointer-events: none; transition: opacity 2s ease;
+            z-index: 2; 
+        }
+        .dim-active { opacity: 1 !important; }
+
+        /* BURBUJAS DE FONDO (Optimizadas con translate3d para GPU) */
+        .bubble-container { position: fixed; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
+        .bg-bubble { 
+            position: absolute; bottom: -50px; 
+            background: rgba(255,255,255,0.35); 
+            border-radius: 50%; 
+            border: 2px solid rgba(255,255,255,0.6); 
+            /* Sombra reducida para rendimiento */
+            box-shadow: inset 0 0 5px rgba(255,255,255,0.4);
+            transform: translate3d(0,0,0); /* Forza aceleración hardware */
+            animation: floatUpBubble linear infinite; 
+        }
+        @keyframes floatUpBubble { 
+            0% { transform: translate3d(0, 0, 0) scale(1); opacity: 0; } 
+            10% { opacity: 1; }
+            100% { transform: translate3d(0, -110vh, 0) scale(1.2); opacity: 0; } 
+        }
+
+        /* GLOBOS FLOTANTES FONDO */
+        #balloon-layer { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 5; }
+        .balloon { 
+            position: absolute; bottom: -150px; width: 50px; height: 65px; 
+            border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%; 
+            box-shadow: inset -5px -5px 10px rgba(0,0,0,0.3), 5px 5px 15px rgba(0,0,0,0.3); 
+            transform: translate3d(0,0,0);
+            animation: floatUpBalloon infinite linear; opacity: 0.95; 
+        }
+        .balloon::after { content: ""; position: absolute; bottom: -35px; left: 50%; width: 1px; height: 35px; background: rgba(255,255,255,0.7); transform: translateX(-50%); }
+        .balloon::before { content: ""; position: absolute; top: 15%; left: 15%; width: 20%; height: 30%; border-radius: 50%; background: radial-gradient(circle, rgba(255,255,255,0.9), rgba(255,255,255,0.1)); transform: rotate(-45deg); }
+
+        .b1 { left: 5%;  background: linear-gradient(135deg, #fff000, #ffbb00); animation-duration: 15s; }
+        .b2 { left: 20%; background: linear-gradient(135deg, #ff5e5e, #c00000); animation-duration: 12s; animation-delay: -5s; }
+        .b3 { left: 85%; background: linear-gradient(135deg, #00d2ff, #0055aa); animation-duration: 18s; animation-delay: -3s; }
+        .b4 { left: 75%; background: linear-gradient(135deg, #ff91a4, #e95678); animation-duration: 14s; animation-delay: -8s; }
+        .b5 { left: 50%; background: linear-gradient(135deg, #7aff7a, #008000); animation-duration: 20s; animation-delay: 2s; opacity:0.8; }
+        
+        @keyframes floatUpBalloon { 
+            0% { transform: translate3d(0, 0, 0) rotate(0deg); } 
+            50% { transform: translate3d(20px, -55vh, 0) rotate(5deg); } 
+            100% { transform: translate3d(-20px, -120vh, 0) rotate(-5deg); } 
+        }
+
+        /* PANTALLA INICIO */
+        #start-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9); z-index: 9999;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            transition: opacity 0.5s ease;
+        }
+        .start-btn {
+            background: #fff000; border: 4px solid #000; padding: 15px 30px;
+            font-family: 'Luckiest Guy', cursive; font-size: 2rem; border-radius: 50px;
+            cursor: pointer; animation: pulseBtn 1s infinite alternate; color: black;
+            box-shadow: 0 0 20px rgba(255, 255, 0, 0.5);
+            -webkit-tap-highlight-color: transparent;
+        }
+        @keyframes pulseBtn { from { transform: scale(1); } to { transform: scale(1.1); } }
+
+        /* CONTENEDOR PRINCIPAL */
+        .content-wrapper {
+            position: relative; z-index: 10;
+            padding-top: 10px; padding-bottom: 50px;
+            display: flex; flex-direction: column; align-items: center;
+            width: 100%; opacity: 0; transition: opacity 1s;
+        }
+
+        /* 1. GLOBOS TEXTO */
+        .balloons-text-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 2px; margin-bottom: 15px; width: 98%; max-width: 600px; }
+        .letter-balloon {
+            width: 28px; height: 35px; border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            font-size: 1.2rem; color: white; -webkit-text-stroke: 0.5px black;
+            box-shadow: inset -2px -2px 5px rgba(0,0,0,0.2), 1px 1px 3px rgba(0,0,0,0.3);
+            position: relative; opacity: 0; transform: scale(3); 
+        }
+        .letter-balloon::after { content: ''; position: absolute; bottom: -4px; left: 50%; width: 1px; height: 6px; background: rgba(255,255,255,0.8); transform: translateX(-50%); }
+        .lb-1 { background: #ff5e5e; } .lb-2 { background: #fff000; color: black !important; } .lb-3 { background: #00AEEF; } .lb-4 { background: #8bc34a; } 
+        
+        .pop-balloon-anim { animation: balloonDrop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+        @keyframes balloonDrop { to { opacity: 1; transform: scale(1); } }
+        .explode-single { animation: explodeDisappear 0.2s forwards !important; }
+        @keyframes explodeDisappear { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(2); opacity: 0; } }
+
+        /* 2. CRONÓMETRO */
+        .missing-text { font-size: 1.5rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); opacity: 0; transform: scale(0); margin-bottom: 5px; }
+        .zoom-in-effect { animation: simpleZoom 0.5s ease-out forwards; }
+        @keyframes simpleZoom { to { opacity: 1; transform: scale(1); } }
+        
+        .countdown-container { display: flex; gap: 6px; margin-bottom: 10px; }
+        .time-box {
+            background: rgba(0, 60, 110, 0.8); 
+            width: 60px; height: 70px; 
+            border-radius: 10px; border: 2px solid rgba(255,255,255,0.5);
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.4); opacity: 0; transform: translateY(50px);
+        }
+        .time-box span { font-size: 1.8rem; color: #fff000; -webkit-text-stroke: 1px black; line-height: 1; }
+        .time-box small { font-size: 0.55rem; margin-top: 2px; font-family: sans-serif; color: white; }
+        .box-appear { animation: popUpBox 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+        @keyframes popUpBox { to { opacity: 1; transform: translateY(0); } }
+
+        /* 3. NOMBRE GUILLERMO */
+        h1.name-title {
+            font-size: 3.8rem; line-height: 1; color: #fff000;
+            -webkit-text-stroke: 2px black; text-shadow: 4px 4px 0px #000;
+            margin: 0px 0 10px 0; transform: scale(0); opacity: 0; z-index: 12;
+        }
+        .name-enter-pulse { animation: zoomEnter 0.8s ease-out forwards, namePulse 1.2s infinite ease-in-out 0.8s; }
+        @keyframes zoomEnter { 0% { transform: scale(0); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+        @keyframes namePulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+
+        /* 4. CUMPLO (Optimizado) */
+        .cumplo-container { display: flex; gap: 5px; justify-content: center; margin-bottom: 5px; display: none; }
+        .b-letter-cumplo {
+            font-size: 2rem; color: white; background: #ff4081;
+            width: 45px; height: 45px; display: flex; align-items: center; justify-content: center;
+            border-radius: 50%; border: 2px solid white; box-shadow: 3px 3px 0 rgba(0,0,0,0.2);
+            opacity: 0; transform: translateY(20px);
+            /* will-change se activará con JS solo cuando sea necesario para no saturar */
+        }
+        .show-cumplo { animation: floatUpSimple 0.5s forwards; }
+        @keyframes floatUpSimple { to { opacity: 1; transform: translateY(0); } }
+        
+        /* EXPLOSIÓN RÁPIDA UNIFICADA */
+        .explode-all { animation: explodeFast 0.4s ease-out forwards; }
+        @keyframes explodeFast { 
+            0% { transform: scale(1); opacity: 1; } 
+            100% { transform: scale(2); opacity: 0; } 
+        }
+
+        /* 5. CONTEO Y PERSONAJES FLOTANTES */
+        .age-wrapper {
+            min-height: 160px; width: 100%; position: relative;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            z-index: 22; 
+        }
+        .big-counter {
+            font-size: 7rem; 
+            line-height: 1;
+            color: white; -webkit-text-stroke: 3px #ff4081;
+            text-shadow: 5px 5px 0px black;
+            opacity: 0; transform: scale(0.5);
+            /* Quitamos transition pesada */
+            z-index: 20; position: absolute;
+        }
+        
+        .counter-final-text {
+            position: relative;
+            font-size: 4rem; color: #ff6d00; 
+            -webkit-text-stroke: 2px white;
+            animation: pulseBtn 1s infinite alternate; white-space: nowrap;
+        }
+
+        .chars-floating {
+            position: absolute; width: 100%; height: 100%; pointer-events: none;
+            display: flex; justify-content: center; align-items: center;
+            gap: 0px; top: -40px; opacity: 0; transition: opacity 0.5s; z-index: 5;
+        }
+        .cf-img { width: 150px; filter: drop-shadow(5px 5px 10px rgba(0,0,0,0.5)); }
+        
+        .dance-float { animation: danceFloat 1.5s infinite ease-in-out; }
+        @keyframes danceFloat {
+            0%, 100% { transform: translateY(0) rotate(5deg); }
+            50% { transform: translateY(-15px) rotate(-5deg); }
+        }
+
+        /* 6. ESCENARIO FINAL */
+        .scene-wrapper { 
+            opacity: 0; transform: translateY(30px); margin-top: -60px; 
+            width: 100%; display: flex; justify-content: center; 
+        }
+        .scene-container {
+            display: flex; align-items: flex-end; justify-content: center;
+            position: relative; width: 100%; max-width: 600px;
+            height: 150px; overflow: visible; 
+        }
+
+        .char-final {
+            width: 160px; position: absolute; bottom: 0px; z-index: 25; 
+            transition: all 1.2s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            opacity: 0; filter: drop-shadow(4px 4px 8px rgba(0,0,0,0.5));
+        }
+        .patrick-final { left: -100px; transform: translateY(-200px) scale(1) rotate(15deg); }
+        .spongebob-final { right: -100px; transform: translateY(-200px) scale(1) rotate(-15deg); }
+        .drop-chars { opacity: 1 !important; transform: translateY(0) scale(1) rotate(0deg) !important; }
+
+        .dance-pat { animation: dancePat 1.4s infinite ease-in-out; }
+        .dance-bob { animation: danceBob 1.4s infinite ease-in-out; animation-delay: 0.1s; }
+
+        @keyframes dancePat {
+            0%, 100% { transform: translateY(0) scale(1) rotate(5deg); }
+            50% { transform: translateY(-10px) scale(1.05) rotate(10deg); }
+        }
+        @keyframes danceBob {
+            0%, 100% { transform: translateY(0) scale(1) rotate(-5deg); }
+            50% { transform: translateY(-10px) scale(1.05) rotate(-10deg); }
+        }
+
+        /* TABLERO */
+        .wood-board {
+            position: relative; z-index: 20; margin-bottom: 20px;
+            background: linear-gradient(to bottom, #d2691e, #8b4513);
+            width: 160px; padding: 8px 3px; 
+            border-radius: 10px; border: 2px solid #5c2e0b;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.5), 0 8px 0 #3e1f07;
+            transform: rotate(-2deg); display: flex; flex-direction: column; align-items: center;
+        }
+        .board-date-num { font-size: 2.5rem; color: #fff000; -webkit-text-stroke: 1px black; line-height: 0.9; }
+        .board-date-month { font-size: 1rem; text-shadow: 1px 1px 0 black; margin-top: 2px;}
+
+        /* 7. INFO ROW */
+        .info-row { 
+            display: flex; flex-direction: row; justify-content: space-between; 
+            align-items: center; width: 100%; padding: 0 5px; margin-top: 5px; 
+        }
+
+        .location-bubble {
+            width: 48%; max-width: 180px; height: auto; aspect-ratio: 1/1;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.2), rgba(0, 85, 170, 0.6) 60%, rgba(0, 60, 110, 0.95));
+            border-radius: 50%; border: 2px solid rgba(255,255,255,0.4);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            padding: 8px; opacity: 0; transform: scale(0.5); margin-right: -15px;
+        }
+        .loc-title { font-size: 1.3rem; color: #fff000; -webkit-text-stroke: 1px black; margin-bottom: 5px; }
+        .loc-address { font-family: 'Fredoka', sans-serif; font-size: 0.9rem; line-height: 1.2; }
+
+        .magic-conch-wrapper {
+            position: relative; width: 40%; max-width: 140px; height: auto; aspect-ratio: 1/1;
+            opacity: 0; transform: scale(0.5); animation: floatShell 4s ease-in-out infinite;
+            margin-left: -5px; 
+        }
+        @keyframes floatShell { 0%,100%{transform: translateY(0) scale(1);} 50%{transform: translateY(-5px) scale(1);} }
+        .conch-inner { position: absolute; width: 100%; height: 100%; }
+        .conch-body {
+            width: 90%; height: 85%; background: radial-gradient(circle at 40% 40%, #f8bbd0, #ad1457);
+            border-radius: 60% 40% 40% 60% / 50% 50% 50% 50%; position: absolute; top: 8%; left: 5%;
+            box-shadow: inset -5px -5px 10px rgba(0,0,0,0.3), 5px 5px 10px rgba(0,0,0,0.3);
+            transform: rotate(-10deg); z-index: 1;
+        }
+        .conch-spiral {
+            position: absolute; top: 20%; left: 20%; width: 50%; height: 50%;
+            border: 4px solid rgba(173, 20, 87, 0.3); border-radius: 50%;
+            border-right-color: transparent; border-bottom-color: transparent; transform: rotate(45deg);
+        }
+        .conch-text {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 5;
+            font-size: 1.8rem; color: white; -webkit-text-stroke: 1px #4a148c;
+            text-shadow: 2px 2px 0 rgba(0,0,0,0.4); font-family: 'Luckiest Guy', cursive; white-space: nowrap;
+        }
+        .pull-string { position: absolute; top: 50%; right: -10%; width: 20%; height: 3px; background: white; transform: rotate(-10deg); }
+        .pull-ring { position: absolute; top: 45%; right: -20%; width: 15px; height: 15px; border: 3px solid white; border-radius: 50%; }
+
+        /* TEXTO NO FALTES */
+        .no-faltes-text {
+            font-size: 2.2rem; color: #fff000; 
+            -webkit-text-stroke: 1.5px black;
+            text-shadow: 3px 3px 0px #000;
+            margin: 20px 0 10px 0;
+            opacity: 0; transform: scale(0.5);
+            animation: pulseBtn 1s infinite alternate;
+        }
+
+        .confetti { position: absolute; width: 10px; height: 10px; top: 50%; opacity: 0; pointer-events: none; z-index: 50; }
+        @keyframes bang { 0% { transform: translate(0,0) rotate(0deg); opacity: 1; } 100% { transform: translate(var(--tx), var(--ty)) rotate(720deg); opacity: 0; } }
+
+        .buttons-container {
+            margin-top: 10px; width: 100%; display: flex; flex-direction: column; gap: 12px; align-items: center;
+            opacity: 0; transform: translateY(50px);
+        }
+        .action-btn {
+            background: linear-gradient(to bottom, #fff000, #ffbb00);
+            color: black; font-size: 1.2rem; text-decoration: none;
+            padding: 12px 25px; border-radius: 50px; width: 85%; max-width: 300px;
+            border: 3px solid black; box-shadow: 0 6px 0 black;
+            text-transform: uppercase; font-family: 'Luckiest Guy', cursive;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .map-btn { background: linear-gradient(to bottom, #ff5e5e, #c00000); color: white; }
+        .calendar-btn { background: white; color: #00AEEF; border-color: #00AEEF; }
+        
+        .fade-in-up { animation: popUpBox 1s forwards; }
+
+    </style>
+</head>
+<body>
+
+    <audio id="bg-music" loop preload="auto">
+        <source src="https://files.catbox.moe/jyhsl5.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="start-overlay">
+        <div class="start-btn" onclick="startExperience()">
+            <i class="fas fa-star"></i> ABRIR INVITACIÓN <i class="fas fa-star"></i>
+        </div>
+    </div>
+    
+    <div id="bg-dimmer"></div>
+
+    <div class="bubble-container">
+        <div class="bg-bubble" style="left:10%; width:15px; height:15px; animation-duration:8s;"></div>
+        <div class="bg-bubble" style="left:20%; width:25px; height:25px; animation-duration:9s; animation-delay: 1s;"></div>
+        <div class="bg-bubble" style="left:70%; width:20px; height:20px; animation-duration:12s;"></div>
+        <div class="bg-bubble" style="left:85%; width:18px; height:18px; animation-duration:10s; animation-delay: 3s;"></div>
+        <div class="bg-bubble" style="left:40%; width:30px; height:30px; animation-duration:7s; animation-delay: 2s;"></div>
+    </div>
+    <div id="balloon-layer">
+        <div class="balloon b1"></div><div class="balloon b2"></div><div class="balloon b3"></div>
+        <div class="balloon b4"></div><div class="balloon b5"></div>
+    </div>
+
+    <div class="content-wrapper" id="main-content">
+        
+        <div id="section-invite" class="balloons-text-container"></div>
+        
+        <div id="section-countdown">
+            <div class="missing-text" id="missing-text">Faltan...</div>
+            <div class="countdown-container">
+                <div class="time-box" id="box-d"><span id="days">00</span><small>DÍAS</small></div>
+                <div class="time-box" id="box-h"><span id="hours">00</span><small>HS</small></div>
+                <div class="time-box" id="box-m"><span id="minutes">00</span><small>MIN</small></div>
+                <div class="time-box" id="box-s"><span id="seconds">00</span><small>SEG</small></div>
+            </div>
+        </div>
+        
+        <div id="section-name">
+            <h1 class="name-title" id="main-name">GUILLERMO</h1>
+        </div>
+
+        <div id="section-age" class="age-wrapper">
+            <div class="cumplo-container" id="cumplo-text">
+                <div class="b-letter-cumplo lb-1">C</div>
+                <div class="b-letter-cumplo lb-2">U</div>
+                <div class="b-letter-cumplo lb-3">M</div>
+                <div class="b-letter-cumplo lb-4">P</div>
+                <div class="b-letter-cumplo lb-1">L</div>
+                <div class="b-letter-cumplo lb-2">O</div>
+            </div>
+
+            <div class="chars-floating" id="floating-chars">
+                <img src="https://i.ibb.co/6c0SN5c1/Picsart-26-02-17-16-10-37-566.png" class="cf-img dance-float" alt="Patricio">
+                <img src="https://i.ibb.co/gbwYL0TD/Picsart-26-02-17-16-09-36-958.png" class="cf-img dance-float" alt="Bob">
+            </div>
+
+            <div id="counting-container" style="position: relative; width: 100%; display: flex; justify-content: center;">
+                <div class="big-counter" id="counter-display">1</div>
+            </div>
+        </div>
+
+        <div id="section-details">
+            <div class="scene-wrapper" id="scene-block">
+                <div class="scene-container">
+                    <img src="https://i.ibb.co/6c0SN5c1/Picsart-26-02-17-16-10-37-566.png" class="char-final patrick-final" id="final-pat" alt="Patricio">
+                    <div class="wood-board">
+                        <div class="board-date-num">28</div>
+                        <div class="board-date-month">SEPTIEMBRE</div>
+                    </div>
+                    <img src="https://i.ibb.co/gbwYL0TD/Picsart-26-02-17-16-09-36-958.png" class="char-final spongebob-final" id="final-bob" alt="Bob Esponja">
+                </div>
+            </div>
+
+            <div class="info-row">
+                <div class="magic-conch-wrapper" id="shell-bubble">
+                    <div class="conch-inner">
+                        <div class="conch-body"></div>
+                        <div class="conch-spiral"></div>
+                        <div class="conch-text">4 PM</div>
+                        <div class="pull-string"></div>
+                        <div class="pull-ring"></div>
+                    </div>
+                </div>
+
+                <div class="location-bubble" id="loc-bubble">
+                    <h3 class="loc-title">¿DÓNDE?</h3>
+                    <p class="loc-address">
+                        Av. Plutarco Elías Calles #335.<br>Col. Libertad.
+                    </p>
+                </div>
+            </div>
+
+            <div class="no-faltes-text" id="no-faltes">
+                ¡NO FALTES!<br>TE ESPERAMOS
+            </div>
+
+            <div class="buttons-container" id="btn-block">
+                <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Cumpleaños+Guillermo&dates=20260928T160000/20260928T210000&details=Fiesta+de+Bob+Esponja&location=Av+Plutarco+Elias+Calles+335" target="_blank" class="action-btn calendar-btn">
+                    <i class="far fa-calendar-alt"></i> AGENDAR
+                </a>
+
+                <a href="https://goo.gl/maps/TU_LINK_DE_MAPS" target="_blank" class="action-btn map-btn" onclick="triggerConfettiBothSides()">
+                    <i class="fas fa-map-marked-alt"></i> CÓMO LLEGAR
+                </a>
+                
+                <a href="https://wa.me/5219518406318?text=¡Hola!%20Confirmo%20mi%20asistencia." class="action-btn" onclick="triggerConfettiBothSides()">
+                    <i class="fab fa-whatsapp"></i> CONFIRMAR ASISTENCIA
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function autoScroll(elementId) {
+            const el = document.getElementById(elementId);
+            if(el) { el.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+        }
+
+        function createBalloons() {
+            const text = "TE INVITO A MI FIESTA";
+            const container = document.getElementById('section-invite');
+            const colors = ['lb-1', 'lb-2', 'lb-3', 'lb-4'];
+            
+            [...text].forEach((char, i) => {
+                if(char === ' ') {
+                    let space = document.createElement('div');
+                    space.style.width = "10px"; 
+                    container.appendChild(space);
+                } else {
+                    let balloon = document.createElement('div');
+                    balloon.classList.add('letter-balloon');
+                    balloon.classList.add(colors[i % 4]);
+                    balloon.innerText = char;
+                    balloon.style.animationDelay = (i * 0.15) + 's'; 
+                    container.appendChild(balloon);
+                }
+            });
+        }
+
+        function sequencePopBalloons() {
+            const balloons = document.querySelectorAll('.letter-balloon');
+            let i = 0;
+
+            function popNext() {
+                if(i >= balloons.length) {
+                    finishInviteSection();
+                    return;
+                }
+                const b = balloons[i];
+                b.classList.add('explode-single'); 
+                i++;
+                setTimeout(popNext, 120); 
+            }
+            popNext();
+        }
+
+        function finishInviteSection() {
+            setTimeout(() => {
+                autoScroll('section-countdown'); 
+                document.getElementById('section-invite').style.display = 'none';
+                
+                document.getElementById('missing-text').classList.add('zoom-in-effect');
+                setTimeout(() => {
+                    document.getElementById('box-d').classList.add('box-appear');
+                    setTimeout(() => document.getElementById('box-h').classList.add('box-appear'), 200);
+                    setTimeout(() => document.getElementById('box-m').classList.add('box-appear'), 400);
+                    setTimeout(() => document.getElementById('box-s').classList.add('box-appear'), 600);
+                }, 500);
+            }, 500);
+        }
+
+        function triggerConfettiBothSides() {
+            const colors = ['#f00', '#0f0', '#00f', '#ff0', '#f0f', '#0ff'];
+            const container = document.body;
+            
+            const createParticle = (xPos) => {
+                const conf = document.createElement('div');
+                conf.classList.add('confetti');
+                conf.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                
+                const tx = (Math.random() - 0.5) * 350 + 'px';
+                const ty = (Math.random() - 0.5) * 550 + 'px'; 
+                
+                conf.style.setProperty('--tx', tx);
+                conf.style.setProperty('--ty', ty);
+                conf.style.left = xPos;
+                conf.style.bottom = '100px'; 
+                conf.style.top = 'auto';
+                
+                const size = Math.random() * 8 + 5 + 'px';
+                conf.style.width = size;
+                conf.style.height = size;
+
+                conf.style.animation = `bang 1s ease-out forwards`;
+                container.appendChild(conf);
+                setTimeout(() => conf.remove(), 1000);
+            };
+
+            for (let i = 0; i < 40; i++) createParticle('10%'); 
+            for (let i = 0; i < 40; i++) createParticle('90%'); 
+        }
+
+        function startExperience() {
+            const overlay = document.getElementById('start-overlay');
+            overlay.style.opacity = '0';
+            setTimeout(() => { overlay.style.display = 'none'; }, 500);
+            document.getElementById('main-content').style.opacity = '1';
+            
+            const audio = document.getElementById('bg-music');
+            if(audio) {
+                audio.volume = 0.5;
+                audio.play().catch(e => { console.log("Audio autoplay falló", e); });
+            }
+
+            triggerSequences();
+        }
+
+        function triggerSequences() {
+            document.getElementById('bg-dimmer').classList.add('dim-active');
+
+            // 1. GLOBOS "TE INVITO"
+            createBalloons();
+            const balloons = document.querySelectorAll('.letter-balloon');
+            balloons.forEach(b => b.classList.add('pop-balloon-anim'));
+            
+            // 2. EXPLOSIÓN UNO POR UNO
+            setTimeout(() => {
+                sequencePopBalloons();
+            }, 6000); 
+
+            // 3. NOMBRE GUILLERMO
+            setTimeout(() => {
+                autoScroll('section-name');
+                const nameEl = document.getElementById('main-name');
+                nameEl.classList.add('name-enter-pulse'); 
+            }, 10000); 
+
+            // 4. CUMPLO -> PAUSA (3s) -> CONTEO
+            setTimeout(() => {
+                autoScroll('section-age'); 
+                const ageSection = document.getElementById('cumplo-text');
+                ageSection.style.display = 'flex';
+                
+                const cumploLetters = document.querySelectorAll('.b-letter-cumplo');
+                cumploLetters.forEach((l, idx) => {
+                    l.style.animationDelay = (idx * 0.1) + 's';
+                    l.classList.add('show-cumplo');
+                });
+
+                // ESPERAMOS A QUE SE LEA "CUMPLO" Y LUEGO... ¡PUM!
+                setTimeout(() => {
+                    // PASO 1: EXPLOTAR TODOS DE GOLPE
+                    cumploLetters.forEach(l => l.classList.add('explode-all'));
+
+                    // LIMPIEZA INMEDIATA: Borrar letras de la memoria para evitar lag
+                    setTimeout(() => {
+                         ageSection.style.display = 'none'; // Se borra del render
+                    }, 500);
+
+                    // PASO 2: PAUSA DE 3 SEGUNDOS (1000ms + 500ms anim = 1500ms)
+                    setTimeout(() => {
+                        const counterEl = document.getElementById('counter-display');
+                        counterEl.style.opacity = '1';
+                        counterEl.style.transform = 'scale(1)';
+                        document.getElementById('floating-chars').style.opacity = '1';
+
+                        let count = 1;
+                        let counterInterval = setInterval(() => {
+                            if(count >= 7) {
+                                clearInterval(counterInterval);
+                                counterEl.innerText = "7 AÑOS";
+                                counterEl.classList.add('counter-final-text');
+                                
+                                triggerConfettiBothSides();
+
+                                // BAJAR PERSONAJES
+                                setTimeout(() => {
+                                    document.getElementById('floating-chars').style.opacity = '0';
+                                    
+                                    autoScroll('section-details');
+                                    document.getElementById('scene-block').classList.add('fade-in-up');
+                                    
+                                    const pat = document.getElementById('final-pat');
+                                    const bob = document.getElementById('final-bob');
+                                    
+                                    setTimeout(() => {
+                                        pat.classList.add('drop-chars');
+                                        bob.classList.add('drop-chars');
+                                        
+                                        setTimeout(() => {
+                                            pat.classList.add('dance-pat');
+                                            bob.classList.add('dance-bob');
+                                        }, 1200);
+
+                                    }, 200);
+
+                                    setTimeout(() => { 
+                                        document.getElementById('shell-bubble').classList.add('fade-in-up'); 
+                                        document.getElementById('loc-bubble').classList.add('fade-in-up'); 
+                                        document.getElementById('no-faltes').classList.add('fade-in-up');
+                                    }, 1000);
+                                    
+                                    setTimeout(() => { document.getElementById('btn-block').classList.add('fade-in-up'); }, 2000);
+
+                                }, 1500); 
+
+                            } else {
+                                count++;
+                                counterEl.innerText = count;
+                            }
+                        }, 800); 
+
+                    }, 3500); // 3 SEGUNDOS DE ESPERA REAL (500ms anim + 3000ms espera)
+
+                }, 2000); 
+
+            }, 13000); 
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const targetDate = new Date("September 28, 2026 15:00:00").getTime();
+            const daysEl = document.getElementById("days");
+            const hoursEl = document.getElementById("hours");
+            const minutesEl = document.getElementById("minutes");
+            const secondsEl = document.getElementById("seconds");
+
+            setInterval(() => {
+                const now = new Date().getTime();
+                const diff = targetDate - now;
+                if (diff > 0 && daysEl) {
+                    daysEl.innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
+                    hoursEl.innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    minutesEl.innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                    secondsEl.innerText = Math.floor((diff % (1000 * 60)) / 1000);
+                }
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
